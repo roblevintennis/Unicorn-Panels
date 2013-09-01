@@ -1,0 +1,40 @@
+//////////////////////////////////////////////////////////
+// BASE DEFAULTS /////////////////////////////////////////
+//////////////////////////////////////////////////////////
+@function pxtoem($target, $context){
+    @return ($target/$context)+0em;
+}
+
+//////////////////////////////////////////////////////////
+// TYPOGRAPHY ////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+$uni-panel-font-color: #666;
+$uni-panel-font-size: 14px;
+$uni-panel-font-weight: 300;
+$uni-panel-font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+$uni-panel-namespace: '.panel'; //prefix for all classes
+$uni-panel-glow-namespace: '.panel-glow';
+$uni-panel-glow-color: #2c9adb;
+$uni-panel-context: 16px;
+$uni-padding-px: 20px;
+$uni-panel-height: 100px;
+$uni-panel-line-height: 24px;
+$uni-panel-bg: darken(#fff, 5%) !default;
+$uni-panel-padding: pxtoem($uni-padding-px, $uni-panel-context) !default;
+$uni-panel-border-style: solid !default;
+$uni-panel-border-size: 1px !default;
+$uni-panel-margin-bottom: pxtoem($uni-padding-px, $uni-panel-context) !default;
+$uni-panel-font-color: #333 !default;
+$uni-panel-rounded-radius: pxtoem($uni-padding-px/2, $uni-panel-context);
+$uni-panel-shadow-color: black;
+$uni-panel-gradient-start: white;
+$uni-panel-gradient-stop: #aaa;
+// (name background-color font-color) add as many as you like.
+$uni-panel-actions: ('primary' #00A1CB #FFF) ('action' #7db500 #FFF) ('highlight' #F18D05 #FFF)('caution' #E54028 #FFF) ('royal' #87318C #FFF);
+// Remove a type to omit from final CSS build.
+$uni-panel-types: 'fancy' 'rounded' 'flat' 'glow';
+$uni-panel-sizes: 'large' 'small' 'tiny';
+
+/// PLEASE DO NOT REMOVE FOLLOWING IMPORT! ///
+@import 'build-types';

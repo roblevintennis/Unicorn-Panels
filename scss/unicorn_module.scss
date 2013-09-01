@@ -1,0 +1,19 @@
+//@import 'partials/normalize';
+@import 'partials/options';
+@import 'partials/mixins';
+@import 'partials/nav';
+@import 'partials/form';
+@import 'partials/code';
+@import 'partials/hero';
+@import 'module/panels';
+
+
+body {
+    margin: 0px;
+}
+
+.page {
+    background: #ecf0f1;
+    padding: 50px;
+}
+

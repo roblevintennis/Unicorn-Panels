@@ -1,0 +1,199 @@
+@import 'compass';
+@import 'options'; // EDIT STYLES AND OPTIONS IN _options.scss
+@import 'glow'; // TODO: We should probably create a more generic glow partial that can be
+                // used across Unicorn modules
+
+//////////////////////////////////////////////////////////
+// "INHERIT-SAFE" FONT SIZES /////////////////////////////
+//////////////////////////////////////////////////////////
+// If user elects to use font-size: inherit in _options
+// leave out calcs which result in inherit2 etc.
+$uni-panel-smallfs: inherit;
+$uni-panel-tinyfs: inherit;
+$uni-panel-largefs: inherit;
+$uni-panel-mediumfs: inherit;
+@if $uni-panel-font-size != inherit {
+    $uni-panel-largefs: $uni-panel-font-size + 5;
+    $uni-panel-tinyfs: $uni-panel-font-size - 2;
+    $uni-panel-smallfs: $uni-panel-font-size + 2;
+    $uni-panel-mediumfs: $uni-panel-font-size + 4;
+}
+
+@mixin panel($bg, $padding) {
+    border: $uni-panel-border-size $uni-panel-border-style darken($bg, 10%);
+    margin-bottom: $uni-panel-margin-bottom;
+    padding: $padding;
+    background: $bg;
+    font-weight: $uni-panel-font-weight;
+    font-size: $uni-panel-font-size;
+    font-family: $uni-panel-font-family;
+    color: $uni-panel-font-color;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+    // TODO:
+    // &:hover {}
+    // &:active {}
+    // &:focus{}
+}
+#{$uni-panel-namespace} {
+    @include panel($uni-panel-bg, $uni-panel-padding);
+    @if ($uni-panel-build-rounded) {
+        &.rounded {
+            @include border-radius($uni-panel-rounded-radius);
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////
+// GRADIENT STYLES ///////////////////////////////////////
+//////////////////////////////////////////////////////////
+@each $uni-panel-action in $uni-panel-actions {
+    $uni-panel-name: nth($uni-panel-action, 1);
+    $uni-panel-background: nth($uni-panel-action, 2);
+    $uni-panel-color: nth($uni-panel-action, 3);
+
+    // .button-primary .button-action etc.
+    #{$uni-panel-namespace}-#{$uni-panel-name} {
+        @include background(linear-gradient(top,  lighten($uni-panel-background, 5%), darken($uni-panel-background, 5%)));
+        background-color: $uni-panel-background;
+        border-color: darken($uni-panel-background, 10%);
+        color: $uni-panel-color;
+        text-shadow: 0 -1px 1px rgba(darken($uni-panel-background, 30%), 0.35);
+
+        &:hover {
+            background-color: $uni-panel-background;
+            @include background(linear-gradient(top,  lighten($uni-panel-background, 10%), darken($uni-panel-background, 5%)));
+        }
+        &:active {
+            background: desaturate($uni-panel-background, 20%);
+            color: darken($uni-panel-background, 20%);
+        }
+    }
+}
+
+
+
+
+//////////////////////////////////////////////////////////
+// FLAT STYLES ///////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+// FLAT BUTTON BASE
+@if $uni-panel-build-flat {
+    #{$uni-panel-namespace}-flat {
+        $uni-panel-background: $uni-panel-bg;
+        @include box-shadow(none);
+        @include transition-property(background);
+        @include transition-duration(.3s);
+        background: $uni-panel-background;
+        border: none;
+        text-shadow: none;
+
+        &:hover {
+            background: lighten($uni-panel-background, 5%);
+        }
+        &:active {
+            @include transition-duration(0s);
+            background: desaturate($uni-panel-background, 20%);
+            color: darken($uni-panel-background, 20%);
+        }
+        &.disabled {
+            @include box-shadow(none);
+        }
+    }
+}
+
+@each $uni-panel-action in $uni-panel-actions {
+    //GET NAME & COLOR
+    $uni-panel-name: nth($uni-panel-action, 1);
+    $uni-panel-background: nth($uni-panel-action, 2);
+    $uni-panel-color: nth($uni-panel-action, 3);
+
+    @if $uni-panel-build-flat {
+        // .panel-flat-primary .panel-flat-action etc.
+        #{$uni-panel-namespace}-flat-#{$uni-panel-name} {
+            @include box-shadow(none);
+            @include transition-property(background);
+            @include transition-duration(.3s);
+            background: $uni-panel-background;
+            color: $uni-panel-color;
+            text-shadow: none;
+            border: none;
+
+            &:hover {
+                background: lighten($uni-panel-background, 5%);
+            }
+            &:active {
+                @include transition-duration(0s);
+                background: desaturate($uni-panel-background, 20%);
+                color: darken($uni-panel-background, 15%);
+            }
+            &.disabled {
+                @include box-shadow(none);
+            }
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////
+// GLOWING PANEL STYLES //////////////////////////////////
+//////////////////////////////////////////////////////////
+@if $uni-panel-build-glow {
+    #{$uni-panel-namespace} {
+        &#{$uni-panel-glow-namespace} {
+            @include glow;
+        }
+        &#{$uni-panel-glow-namespace}:active {
+            @include no_animation;
+            @include box-shadow(inset 0px 1px 3px rgba(0, 0, 0, .3), 0px 1px 0px rgba(255, 255, 255, 1));
+        }
+    }
+}
+
+
+
+//////////////////////////////////////////////////////////
+// SIZES /////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+
+@each $uni-panel-size in $uni-panel-sizes {
+
+    // .button-large .button-small .button-tiny
+    #{$uni-panel-namespace}-#{$uni-panel-size} {
+        @if $uni-panel-size == 'large' {
+            font-size: $uni-panel-largefs;
+            height: $uni-panel-height * 1.2;
+            line-height: $uni-panel-line-height * 1.2;
+            padding: 0px ($uni-panel-height * 1.2) * .8;
+        }
+
+        @if $uni-panel-size == 'small' {
+            font-size: $uni-panel-smallfs;
+            height: $uni-panel-height * .8;
+            line-height: $uni-panel-line-height * .7;
+            padding: 0px ($uni-panel-height * .8) * .8;
+        }
+
+        @if $uni-panel-size == 'tiny' {
+            font-size: $uni-panel-tinyfs;
+            height: $uni-panel-height * .7;
+            line-height: $uni-panel-line-height * .6;
+            padding: 0px ($uni-panel-height * .7) * .8;
+        }
+    }
+
+    //HEIGHT NEEDED FOR FORM ELEMENTS +2px on height
+    input#{$uni-panel-namespace}-#{$uni-panel-size}, button#{$uni-panel-namespace}-#{$uni-panel-size} {
+        @if $uni-panel-size == 'large' {
+            height: ($uni-panel-height * 1.2) + 2;
+        }
+
+        @if $uni-panel-size == 'small' {
+            height: ($uni-panel-height * .8) + 2;
+        }
+
+        @if $uni-panel-size == 'tiny' {
+            height: ($uni-panel-height * .7) + 2;
+        }
+    }
+}
+
