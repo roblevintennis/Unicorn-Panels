@@ -150,6 +150,35 @@ $uni-panel-mediumfs: inherit;
 }
 
 
+//////////////////////////////////////////////////////////
+// SHAPES ////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+@each $uni-panel-style in $uni-panel-types {
+
+    // .button-rounded .button-pill button-circle
+    #{$uni-panel-namespace}-#{$uni-panel-style} {
+
+        @if $uni-panel-style == 'rounded' {
+            @include border-radius(5px);
+        }
+        @else if $uni-panel-style == 'circle' {
+            @include border-radius($uni-panel-circle-size * 2);
+            @include box-shadow(inset 0px 1px 1px rgba(255, 255, 255, .5), 0px 1px 2px rgba(0, 0, 0, .20));
+            width: $uni-panel-circle-size;
+            line-height: $uni-panel-circle-size;
+            height: $uni-panel-circle-size;
+            text-align: center;
+            padding: 0px;
+            border-width: 4px;
+            font-size: $uni-panel-mediumfs;
+        }
+        @else if $uni-panel-style == 'square' {
+            height: ($uni-panel-height * 2);
+            width: ($uni-panel-height * 2);
+        }
+    }
+}
+
 
 //////////////////////////////////////////////////////////
 // SIZES /////////////////////////////////////////////////

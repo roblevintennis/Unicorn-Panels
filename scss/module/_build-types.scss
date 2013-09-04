@@ -3,15 +3,14 @@
 //////////////////////////////////////////////////////////
 // Purpose of this file is to set global flags for which
 // types we'll include in our final css build or not.
-$uni-panel-build-fancy: false;
 $uni-panel-build-flat: false;
 $uni-panel-build-rounded: false;
 $uni-panel-build-glow: false;
+$uni-panel-build-circle: false;
+$uni-panel-build-square: false;
+
 @each $type in $uni-panel-types {
-    @if $type == 'fancy' {
-        $uni-panel-build-fancy: true;
-    }
-    @else if $type == 'rounded' {
+    @if $type == 'rounded' {
         $uni-panel-build-rounded: true;
     }
     @else if $type == 'flat' {
@@ -19,6 +18,12 @@ $uni-panel-build-glow: false;
     }
     @else if $type == 'glow' {
         $uni-panel-build-glow: true;
+    }
+    @else if $type == 'circle' {
+        $uni-panel-build-circle: true;
+    }
+    @else if $type == 'square' {
+        $uni-panel-build-square: true;
     }
 }
 //@debug "$build-glow is #{$build-glow}";

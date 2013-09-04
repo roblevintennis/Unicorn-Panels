@@ -33,8 +33,9 @@ $uni-panel-gradient-stop: #aaa;
 // (name background-color font-color) add as many as you like.
 $uni-panel-actions: ('primary' #00A1CB #FFF) ('action' #7db500 #FFF) ('highlight' #F18D05 #FFF)('caution' #E54028 #FFF) ('royal' #87318C #FFF);
 // Remove a type to omit from final CSS build.
-$uni-panel-types: 'fancy' 'rounded' 'flat' 'glow';
+$uni-panel-types: 'rounded' 'flat' 'glow' 'circle' 'square';
 $uni-panel-sizes: 'large' 'small' 'tiny';
+$uni-panel-circle-size: 320px; //radius for circle panels, circles have one size
 
 /// PLEASE DO NOT REMOVE FOLLOWING IMPORT! ///
 @import 'build-types';
